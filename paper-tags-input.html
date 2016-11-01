@@ -60,7 +60,7 @@ Custom property | Description | Default
       display: inline-block;
     }
     </style>
-    <paper-input id="tagInput" always-float-label on-keydown="_keyDown" readonly$="[[readonly]]" placeholder$="[[placeholder]]" disabled$="[[disabled]]" invalid="[[invalid]]" label="[[label]]" bind-value="{{value}}" maxlength$="[[maxlength]]" error-message="[[errorMessage]]" minlength$="[[minlength]]" invalid="{{invalid}}">
+    <paper-input id="tagInput" always-float-label on-keydown="_keyDown" readonly$="[[readonly]]" placeholder$="[[placeholder]]" disabled$="[[disabled]]" invalid="[[invalid]]" label="[[label]]" bind-value="{{value}}" maxlength$="[[maxlength]]" error-message="[[errorMessage]]" minlength$="[[minlength]]">
       <content select="[prefix]" prefix></content>
       <paper-tags id="paperTags" readonly$="[[readonly]]" items="{{items}}" icon="[[icon]]" item-class="[[itemClass]]" class-accessor="[[classAccessor]]" label-accessor="[[labelAccessor]]" icon-accessor="[[iconAccessor]]" is-removable="[[isRemovable]]" prefix></paper-tags>
       <content select="[suffix]" suffix></content>
@@ -119,7 +119,10 @@ Polymer({
     /**
      * The `value` for this input. If you're using PaperInputBehavior to implement your own paper-input-like element, bind this to the <input is="iron-input">'s bindValue property, or the value property of your input that is notify:true.
      */
-    value: String,
+    value: {
+      type: String,
+      notify: true
+    },
 
     /**
      * `allowAdd` determines if new tags are allowed on pressing `Enter` or not.

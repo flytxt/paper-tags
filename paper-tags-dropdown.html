@@ -78,6 +78,9 @@ Custom property | Description | Default
         <template is="dom-repeat" items="{{items}}" filter="{{_debounceFilter(searchString)}}">
           <paper-item name="[[_computeItemValue(item, idAccessor)]]">[[_computeItemLabel(item, labelAccessor)]]</paper-item>
         </template>
+        <template is="dom-if" if="[[ searchString.length ]]">
+          <paper-item name="[[ searchString ]]" on-tap="addNewTag">[[ searchString ]]&nbsp;(New Label)</paper-item>
+        </template>
       </paper-menu>
       <content id="content" select=".dropdown-content"></content>
     </paper-menu-button>
@@ -226,7 +229,8 @@ Custom property | Description | Default
 
       keyBindings: {
         'up down': 'open',
-        'esc': 'close'
+        'esc': 'close',
+        'enter': 'addNewTag'
       },
 
       hostAttributes: {
@@ -272,6 +276,13 @@ Custom property | Description | Default
         }
         
         this._isUpdatingValueArray--;
+      },
+
+      addNewTag: function() {
+        this.push('tagItems', this.searchString);
+        this.set('searchString', '');
+        this.$.tagInput.$$('paper-input').value = '';
+        this.fire('add-new-tag');
       },
 
       ready: function() {
